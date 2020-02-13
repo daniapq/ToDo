@@ -17,5 +17,6 @@ BaselineOfToDo >> baseline: spec [
 		do: [ 
 			spec
 				package: 'ToDo-Model';
-				package: 'ToDo-Tests' ]
+				package: 'ToDo-Tests';
+				package: 'ToDo-View' ]
 ]
