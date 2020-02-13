@@ -55,7 +55,8 @@ ToDoList >> add: aToDoItem [
 { #category : #initialization }
 ToDoList >> initialize [
 
-	self items: OrderedCollection new
+	self items: OrderedCollection new.
+	self title: 'Seaside ToDo'
 ]
 
 { #category : #accessing }
