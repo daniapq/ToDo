@@ -1,3 +1,11 @@
+"
+ToDo Item model in application
+
+Instance Variables
+	done:		<aBoolean>
+	due:		<aDate>
+	title:		<aString>
+"
 Class {
 	#name : #ToDoItem,
 	#superclass : #Object,

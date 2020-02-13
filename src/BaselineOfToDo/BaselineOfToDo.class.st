@@ -1,11 +1,14 @@
+"
+Baseline of ToDo application
+"
 Class {
-	#name : #ToDo,
+	#name : #BaselineOfToDo,
 	#superclass : #BaselineOf,
 	#category : #BaselineOfToDo
 }
 
 { #category : #baselines }
-ToDo >> baseline: spec [
+BaselineOfToDo >> baseline: spec [
 
 	<baseline>
 	
