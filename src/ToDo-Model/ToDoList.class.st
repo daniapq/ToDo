@@ -84,6 +84,12 @@ ToDoList >> removeAllToDoItems [
 ]
 
 { #category : #accessing }
+ToDoList >> replace: aToDoItem with: anotherItem [
+
+	self items at: (self items indexOf: aToDoItem) put: anotherItem
+]
+
+{ #category : #accessing }
 ToDoList >> size [
 
 	^ self items size

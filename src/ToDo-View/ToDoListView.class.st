@@ -4,6 +4,9 @@ ToDo List View Component
 Class {
 	#name : #ToDoListView,
 	#superclass : #WAComponent,
+	#instVars : [
+		'editor'
+	],
 	#category : #'ToDo-View'
 }
 
@@ -13,18 +16,69 @@ ToDoListView class >> initialize [
 	WAAdmin register: self asApplicationAt: 'todo'
 ]
 
+{ #category : #actions }
+ToDoListView >> add [
+
+	editor := ToDoItemView new model: ToDoItem new.
+	editor onAnswer: [ :value |
+		value 
+			ifNotNil: [ self model add: value ].
+		editor := nil ]
+]
+
+{ #category : #hooks }
+ToDoListView >> children [
+
+	^ Array with: editor
+]
+
+{ #category : #actions }
+ToDoListView >> edit: anItem [
+
+	| edited |
+	edited := self call: (ToDoItemView new model: anItem copy).
+	edited 
+		ifNotNil: [ self model replace: anItem with: edited ]
+]
+
+{ #category : #accessing }
+ToDoListView >> editor [
+
+	^ editor
+]
+
+{ #category : #accessing }
+ToDoListView >> editor: anEditor [
+
+	editor := anEditor
+]
+
 { #category : #accessing }
 ToDoListView >> model [
 
 	^ ToDoList default
 ]
 
+{ #category : #actions }
+ToDoListView >> remove: anItem [
+
+	(self confirm: 'Are you sure want to remove ', anItem title printString, '?')
+		ifTrue: [ self model remove: anItem ]
+]
+
 { #category : #rendering }
 ToDoListView >> renderContentOn: html [
 
 	html heading: self model title.
-	html unorderedList: [ 
-		self renderItemsOn: html ]
+	html form: [ 
+		html unorderedList: [
+			self renderItemsOn: html ].
+		html submitButton
+			text: 'Save'.
+		html submitButton
+			callback: [ self add ];
+			with: 'Add' ].
+		html render: editor
 ]
 
 { #category : #rendering }
@@ -33,7 +87,19 @@ ToDoListView >> renderItem: anItem on: html [
 	html listItem
 		class: 'done' if: anItem isDone;
 		class: 'overdue' if: anItem isOverdue;
-		with: anItem title
+		with: [
+			html checkbox
+				value: anItem done;
+				callback: [ :value | anItem done: value ].
+			html text: anItem title.
+			html space.
+			html anchor
+				callback: [ self edit: anItem ];
+				with: 'edit'.
+			html space.
+			html anchor
+				callback: [ self remove: anItem ];
+				with: 'remove' ]
 ]
 
 { #category : #rendering }
