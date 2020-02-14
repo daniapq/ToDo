@@ -1,4 +1,4 @@
-# ToDo List example in Seaside
+# ToDo List example in Seaside [![Build Status](https://travis-ci.org/daniapq/ToDo.svg?branch=master)](https://travis-ci.org/daniapq/ToDo)
 
 This Web application is a example of how to use Seaside3 in Pharo.
 
